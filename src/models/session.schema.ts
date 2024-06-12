@@ -18,5 +18,5 @@ export const SessionSchema = new Schema(
       default: [],
     },
   },
-  { timestamps: true },
+  { timestamps: true, saveUnknown: true },
 );

@@ -11,7 +11,7 @@ export interface IChat {
   chatId?: string;
   scenario?: string;
   difficulty?: string;
-  chatHistory?: object;
+  chatHistory?: any;
   chatFeedback?: string;
   userFeedback?: {
     feedbackId?: string;

@@ -58,7 +58,6 @@ export class AppService {
   async getAllChats(sessionId: string) {
     this.logger.log(this.getAllChats.name);
     const session = await this.sessionModel.get({ sessionId });
-    console.log(session);
     if (!session) {
       throw new SessionNotFoundError();
     }
@@ -113,13 +112,19 @@ export class AppService {
     let updatedChatHistory;
     const updatedChats = existingSession.chat.map((chat) => {
       if (chat.chatId == chatId) {
-        updatedChatHistory = { ...chat, chatHistory: chatHistory };
+        updatedChatHistory = {
+          ...chat,
+          chatHistory: chatHistory,
+        };
         return updatedChatHistory;
       } else {
         return chat;
       }
     });
-    await this.sessionModel.update({ sessionId }, { chat: updatedChats });
+    const output = await this.sessionModel.update(
+      { sessionId },
+      { chat: updatedChats },
+    );
     return updatedChatHistory;
   }
 
