@@ -40,7 +40,7 @@ export class AppService {
   async updateSession(input: any): Promise<any> {
     this.logger.log(this.updateSession.name);
     const { sessionId, preferredName } = input;
-    let existingSession = await this.sessionModel.get(sessionId);
+    const existingSession = await this.sessionModel.get(sessionId);
     if (!existingSession) {
       throw new SessionNotFoundError();
     }
@@ -68,7 +68,7 @@ export class AppService {
     this.logger.log(this.newChat.name);
     let updatedSession: ISession;
     const { sessionId, chatId, scenario, difficulty } = input;
-    let existingSession = await this.sessionModel.get(sessionId);
+    const existingSession = await this.sessionModel.get(sessionId);
     if (!existingSession) {
       throw new SessionNotFoundError();
     }

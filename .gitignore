@@ -3,7 +3,6 @@ ecs-task-def.json
 /.history
 .env
 # compiled output
-/dist
 /node_modules
 
 # Logs

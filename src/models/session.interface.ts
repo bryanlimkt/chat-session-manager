@@ -1,5 +1,5 @@
 export interface ISessionKey {
-  sessionId: String;
+  sessionId: string;
 }
 
 export interface ISession extends ISessionKey {
