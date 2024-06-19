@@ -1,5 +1,5 @@
 export interface ISessionKey {
-    sessionId: String;
+    sessionId: string;
 }
 export interface ISession extends ISessionKey {
     sessionMetadata?: {
@@ -9,7 +9,8 @@ export interface ISession extends ISessionKey {
 }
 export interface IChat {
     chatId?: string;
-    scenario?: string;
+    topic?: string;
+    module?: string;
     difficulty?: string;
     chatHistory?: any;
     chatFeedback?: string;

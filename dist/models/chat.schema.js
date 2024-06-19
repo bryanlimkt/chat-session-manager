@@ -5,7 +5,8 @@ const dynamoose_1 = require("dynamoose");
 const feedback_schema_1 = require("./feedback.schema");
 exports.ChatSchema = new dynamoose_1.Schema({
     chatId: String,
-    scenario: String,
+    topic: String,
+    module: String,
     difficulty: String,
     chatHistory: Object,
     chatFeedback: String,

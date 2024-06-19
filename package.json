@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "commit-dist": "git add dist/",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -20,7 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "pre-commit-message": "echo Pre-commit hook: running lint and build..."
   },
-  "pre-commit": ["pre-commit-message", "lint", "build" ],
+  "pre-commit": ["pre-commit-message", "lint", "build", "commit-dist" ],
   "dependencies": {
     "@aws-sdk/lib-dynamodb": "^3.592.0",
     "@nestjs/common": "^10.0.0",

@@ -52,7 +52,7 @@ let AppService = AppService_1 = class AppService {
     async updateSession(input) {
         this.logger.log(this.updateSession.name);
         const { sessionId, preferredName } = input;
-        let existingSession = await this.sessionModel.get(sessionId);
+        const existingSession = await this.sessionModel.get(sessionId);
         if (!existingSession) {
             throw new session_not_found_error_1.SessionNotFoundError();
         }
@@ -73,8 +73,8 @@ let AppService = AppService_1 = class AppService {
     async newChat(input) {
         this.logger.log(this.newChat.name);
         let updatedSession;
-        const { sessionId, chatId, scenario, difficulty } = input;
-        let existingSession = await this.sessionModel.get(sessionId);
+        const { sessionId, chatId, topic, module, difficulty } = input;
+        const existingSession = await this.sessionModel.get(sessionId);
         if (!existingSession) {
             throw new session_not_found_error_1.SessionNotFoundError();
         }
@@ -82,7 +82,12 @@ let AppService = AppService_1 = class AppService {
         if (chatExists) {
             const updatedChats = existingSession.chat.map((chat) => {
                 if (chat.chatId == chatId) {
-                    return { ...chat, scenario: scenario, difficulty: difficulty };
+                    return {
+                        ...chat,
+                        topic: topic,
+                        module: module,
+                        difficulty: difficulty,
+                    };
                 }
                 else {
                     return chat;
@@ -91,7 +96,12 @@ let AppService = AppService_1 = class AppService {
             updatedSession = await this.sessionModel.update({ sessionId }, { chat: updatedChats });
         }
         else {
-            updatedSession = await this.sessionModel.update({ sessionId }, { chat: [...existingSession.chat, { chatId, scenario, difficulty }] });
+            updatedSession = await this.sessionModel.update({ sessionId }, {
+                chat: [
+                    ...existingSession.chat,
+                    { chatId, topic, module, difficulty },
+                ],
+            });
         }
         return updatedSession.chat.find((chat) => chat.chatId == chatId);
     }
