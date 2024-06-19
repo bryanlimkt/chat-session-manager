@@ -67,7 +67,7 @@ export class AppService {
   async newChat(input) {
     this.logger.log(this.newChat.name);
     let updatedSession: ISession;
-    const { sessionId, chatId, scenario, difficulty } = input;
+    const { sessionId, chatId, topic, module, difficulty } = input;
     const existingSession = await this.sessionModel.get(sessionId);
     if (!existingSession) {
       throw new SessionNotFoundError();
@@ -78,7 +78,12 @@ export class AppService {
     if (chatExists) {
       const updatedChats = existingSession.chat.map((chat) => {
         if (chat.chatId == chatId) {
-          return { ...chat, scenario: scenario, difficulty: difficulty };
+          return {
+            ...chat,
+            topic: topic,
+            module: module,
+            difficulty: difficulty,
+          };
         } else {
           return chat;
         }
@@ -90,7 +95,12 @@ export class AppService {
     } else {
       updatedSession = await this.sessionModel.update(
         { sessionId },
-        { chat: [...existingSession.chat, { chatId, scenario, difficulty }] },
+        {
+          chat: [
+            ...existingSession.chat,
+            { chatId, topic, module, difficulty },
+          ],
+        },
       );
     }
     return updatedSession.chat.find((chat) => chat.chatId == chatId);
